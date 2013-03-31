@@ -4,7 +4,8 @@ import java.text.NumberFormat;
 
 public class Parser{
 
-  static String[] token = new String[0];
+	static String[] token = new String[0];
+	static String[] token1 = new String[0];
 	static String opcode;
 	static String strLine="";
 	static NumberFormat fb=new DecimalFormat("0000");
@@ -19,95 +20,113 @@ public class Parser{
 			
 			//Read file line by line and storing data in the form of tokens
 			while((strLine = br.readLine()) != null){
-				strLine = strLine.replaceAll("\\s?,\\s?",","); // replace space followed by comma or vice versa with a comma
-				token = strLine.split(" |,");// split w.r.t spaces and , 
 				
-				
-				int i;
-				int n = token.length;
-				for(i=1;i<n;i++){
-					token[i]=token[i].replace("R",""); // remove R in the registries
+				int middle=0;
+				String location,value;
+				if(strLine.startsWith("#")){
+					for(int j=0;j<strLine.length();j++){
+						if(strLine.charAt(j)=='='){
+							middle=j;
+							break;
+						}
+					}
+					if(middle!=0){
+						location=strLine.substring(1,middle);
+						value=strLine.substring(middle+1);
+						System.out.println(location+"   "+value);
+					}
 				}
+				
+				else{
+					strLine = strLine.replaceAll("\\s?,\\s?",","); // replace space followed by comma or vice versa with a comma
+					token = strLine.split(" |,");// split w.r.t spaces and , 
+				
+				
+					int n = token.length;
+					for(int i=1;i<n;i++){
+						token[i]=token[i].replace("R",""); // remove R in the registries
+					}
 			
-				if(token[0].equals("MOVE")){
-					opcode=move(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("MOVE")){
+						opcode=move(strLine);
+						System.out.println(opcode);
+					}
 			
-				if(token[0].equals("NOT")){
-					opcode=not(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("NOT")){
+						opcode=not(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("AND")){
-					opcode=and(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("AND")){
+						opcode=and(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("OR")){
-					opcode=or(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("OR")){
+						opcode=or(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("ADD")){
-					opcode=add(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("ADD")){
+						opcode=add(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("SUB")){
-					opcode=sub(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("SUB")){
+						opcode=sub(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("ADDI")){
-					opcode=addi(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("ADDI")){
+						opcode=addi(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("SUBI")){
-					opcode=subi(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("SUBI")){
+						opcode=subi(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("SET")){
-					opcode=set(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("SET")){
+						opcode=set(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("SETH")){
-					opcode=seth(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("SETH")){
+						opcode=seth(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("INCIZ")){
-					opcode=inciz(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("INCIZ")){
+						opcode=inciz(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("DECIN")){
-					opcode=decin(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("DECIN")){
+						opcode=decin(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("MOVEZ")){
-					opcode=movez(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("MOVEZ")){
+						opcode=movez(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("MOVEX")){
-					opcode=movex(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("MOVEX")){
+						opcode=movex(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("MOVEP")){
-					opcode=movep(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("MOVEP")){
+						opcode=movep(strLine);
+						System.out.println(opcode);
+					}
 				
-				if(token[0].equals("MOVEN")){
-					opcode=moven(strLine);
-					System.out.println(opcode);
-				}
+					if(token[0].equals("MOVEN")){
+						opcode=moven(strLine);
+						System.out.println(opcode);
+					}
+				}// else close
 				
 			} // while loop close
 			in.close(); //Close the input stream
@@ -176,7 +195,7 @@ public class Parser{
 		Ra=Integer.toBinaryString(sour);
 		Ra=fb.format(Integer.parseInt(Ra));
 		
-        Rb=token[3];
+       		Rb=token[3];
 		sour2=Integer.parseInt(Rb);
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
