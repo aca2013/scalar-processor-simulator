@@ -46,85 +46,94 @@ public class Parser{
 					for(int i=1;i<n;i++){
 						token[i]=token[i].replace("R",""); // remove R in the registries
 					}
+					
+					// checking for appropriate operation
+					if(token[0].equals("MOVE") || token[0].equals("NOT") || token[0].equals("AND")||token[0].equals("OR") || token[0].equals("ADD") || token[0].equals("SUB") 
+					|| token[0].equals("ADDI") || token[0].equals("SUBI")|| token[0].equals("SET") || token[0].equals("SETH")|| token[0].equals("INCIZ") || token[0].equals("DECIN")
+					|| token[0].equals("MOVEN") || token[0].equals("MOVEP")||token[0].equals("MOVEZ") || token[0].equals("MOVEX")){
+					
+						if(token[0].equals("MOVE")){
+							opcode=move(strLine);
+							System.out.println(opcode);
+						}
 			
-					if(token[0].equals("MOVE")){
-						opcode=move(strLine);
-						System.out.println(opcode);
-					}
-			
-					if(token[0].equals("NOT")){
-						opcode=not(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("NOT")){
+							opcode=not(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("AND")){
-						opcode=and(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("AND")){
+							opcode=and(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("OR")){
-						opcode=or(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("OR")){
+							opcode=or(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("ADD")){
-						opcode=add(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("ADD")){
+							opcode=add(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("SUB")){
-						opcode=sub(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("SUB")){
+							opcode=sub(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("ADDI")){
-						opcode=addi(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("ADDI")){
+							opcode=addi(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("SUBI")){
-						opcode=subi(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("SUBI")){
+							opcode=subi(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("SET")){
-						opcode=set(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("SET")){
+							opcode=set(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("SETH")){
-						opcode=seth(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("SETH")){
+							opcode=seth(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("INCIZ")){
-						opcode=inciz(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("INCIZ")){
+							opcode=inciz(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("DECIN")){
-						opcode=decin(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("DECIN")){
+							opcode=decin(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("MOVEZ")){
-						opcode=movez(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("MOVEZ")){
+							opcode=movez(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("MOVEX")){
-						opcode=movex(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("MOVEX")){
+							opcode=movex(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("MOVEP")){
-						opcode=movep(strLine);
-						System.out.println(opcode);
-					}
+						if(token[0].equals("MOVEP")){
+							opcode=movep(strLine);
+							System.out.println(opcode);
+						}
 				
-					if(token[0].equals("MOVEN")){
-						opcode=moven(strLine);
-						System.out.println(opcode);
+						if(token[0].equals("MOVEN")){
+							opcode=moven(strLine);
+							System.out.println(opcode);
+						}
+					}
+					else{
+						System.out.println("INVALID OPERATION");
 					}
 				}// else close
 				
@@ -155,7 +164,7 @@ public class Parser{
 		Ra=Integer.toBinaryString(sour);
 		Ra=fb.format(Integer.parseInt(Ra));
 				
-		opcode=opcode+" "+Rd+" "+Ra+" "+"0000";
+		opcode=opcode+Rd+Ra+"0000";
 		return opcode;
 	}// move() close
 	
@@ -175,7 +184,7 @@ public class Parser{
 		Ra=Integer.toBinaryString(sour);
 		Ra=fb.format(Integer.parseInt(Ra));
 				
-		opcode=opcode+" "+Rd+" "+Ra+" "+"0000";
+		opcode=opcode+Rd+Ra+"0000";
 		return opcode;
 	}// not() close
 	
@@ -195,12 +204,12 @@ public class Parser{
 		Ra=Integer.toBinaryString(sour);
 		Ra=fb.format(Integer.parseInt(Ra));
 		
-       		Rb=token[3];
+        Rb=token[3];
 		sour2=Integer.parseInt(Rb);
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// and() close
 	
@@ -225,7 +234,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// or() close
 	
@@ -250,7 +259,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}//close add()
 		
@@ -275,7 +284,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// sub() close
 	
@@ -300,7 +309,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}//close addi()
 	
@@ -325,7 +334,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// subi() close
 	
@@ -345,7 +354,7 @@ public class Parser{
 		Ra=Integer.toBinaryString(sour);
 		Ra=fb.format(Integer.parseInt(Ra));
 				
-		opcode=opcode+" "+Rd+" "+Ra+" "+"0000";
+		opcode=opcode+Rd+Ra+"0000";
 		return opcode;
 	}// set() close
 	
@@ -365,7 +374,7 @@ public class Parser{
 		Ra=Integer.toBinaryString(sour);
 		Ra=fb.format(Integer.parseInt(Ra));
 				
-		opcode=opcode+" "+Rd+" "+Ra+" "+"0000";
+		opcode=opcode+Rd+Ra+"0000";
 		return opcode;
 	}// seth() close	
 	
@@ -390,7 +399,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// inciz() close	
 	
@@ -415,7 +424,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// decin() close
 
@@ -440,7 +449,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// movez() close
 	
@@ -465,7 +474,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// movex() close
 	
@@ -490,7 +499,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// movep() close
 	
@@ -515,7 +524,7 @@ public class Parser{
 		Rb=Integer.toBinaryString(sour2);
 		Rb=fb.format(Integer.parseInt(Rb));
 		
-		opcode=opcode+" "+Rd+" "+Ra+" "+Rb;
+		opcode=opcode+Rd+Ra+Rb;
 		return opcode;
 	}// moven() close
 	
